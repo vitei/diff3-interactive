@@ -25,7 +25,9 @@ def get_choice_from_user()
 end
 
 # Modifications which only display a 2-way diff get resolved automatically
-merged.gsub!(/^<<<<<<<[^\n]*\n(.*?)\n=======[^\n]*\n(.*?)\n>>>>>>>[^\n]*/m, '\2')
+merged.gsub!(/^<<<<<<<[^\n]*\n(.*?)\n=======[^\n]*\n(.*?)\n>>>>>>>[^\n]*/m) do |match|
+	match =~ /^\|\|\|\|\|\|\|/ ? match : $2
+end
 
 # Modifications resulting in a 3-way diff prompt the user
 merged.gsub! /^<<<<<<<[^\n]*\n(.*?)\n\|\|\|\|\|\|\|[^\n]*\n(.*?)\n=======[^\n]*\n(.*?)\n>>>>>>>[^\n]*/m do |match|
