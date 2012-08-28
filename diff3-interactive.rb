@@ -13,7 +13,7 @@ merged = `diff3 -m #{MINE} #{BASE} #{YOURS}`.force_encoding("UTF-8").gsub(/\r\n?
 merged_tac = merged.lines.to_a.reverse.join("")
 merged_tac.sub!(/\A>>>>>>>[^\n]*\n(.*?)\n(.*?)=======\n<<<<<<<[^\n]*\n/m, "\\1\n")
 merged_tac.sub!(/\A(.+?)>>>>>>>[^\n]*\n=======\n([^\n]*?)\n<<<<<<<[^\n]*\n/m, "\\2\n")
-merged = merged_tac.lines.to_a.reverse.join("")
+merged = merged_tac.lines.to_a.reverse.join("").sub(/\n\z/,'')
 
 def get_choice_from_user()
 	puts "Please choose:\n"
